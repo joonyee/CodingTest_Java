@@ -1,8 +1,10 @@
+
 import java.util.*;
 
 class Solution {
     public ArrayList<Integer> solution(int[] answers) {
         int[] answerCnt = {0, 0, 0};
+        
         int[] a = {1, 2, 3, 4, 5};
         int[] b = {2, 1, 2, 3, 2, 4, 2, 5};
         int[] c = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
@@ -36,10 +38,5 @@ class Solution {
         }
         
         return answerList;
-        
-//         int arr[] answerArr = new int[answerList.size()];
-        
-        
-//         return answer;
     }
 }
