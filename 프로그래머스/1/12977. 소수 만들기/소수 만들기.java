@@ -20,6 +20,7 @@ class Solution {
     }
     
     // 2부터 n의 제곱근까지 나누어 소수인지 여부 확인
+    // 약수는 대칭성을 가짐. n의 제곱근을 기준으로 짝을 이루어 그 이상은 확인 필요X(6X6=36)
     public boolean isPrime(int n) {
         for (int i = 2; i <= Math.sqrt(n); i++) {
             if (n % i == 0) {
