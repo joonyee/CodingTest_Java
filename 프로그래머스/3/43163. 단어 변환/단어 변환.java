@@ -7,11 +7,11 @@ class Solution {
         // 방문 여부를 담을 visited
         boolean[] visited = new boolean[words.length];
         // 처음 단어를 큐에 넣음
-        queue.add(new WordState(0, begin));
+        queue.offer(new WordState(0, begin));
         
         // bfs 실행
         while(!queue.isEmpty()){
-            WordState cur = queue.remove();
+            WordState cur = queue.poll();
             if(cur.word.equals(target)) return cur.cnt;
             
             for(int i=0; i<words.length; i++){
