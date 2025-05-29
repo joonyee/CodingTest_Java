@@ -3,15 +3,6 @@ import java.util.*;
 class Solution {
     public int solution(int[][] maps) {
         
-        // 시작점이 벽인 경우 -1리턴
-        if(maps[0][0] == 0) return -1;
-        
-        return bfs(maps);
-    }
-    
-    // bfs로 최단거리 구하기
-    int bfs(int[][] maps){
-        
         // 맵의 크기 n x m (세로 x 가로)
         int lenN = maps.length;
         int lenM = maps[0].length;
@@ -62,18 +53,6 @@ class Solution {
             }
         }
         return -1;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
+    } 
 }
