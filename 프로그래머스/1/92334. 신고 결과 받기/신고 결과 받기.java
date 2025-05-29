@@ -10,6 +10,12 @@ class Solution {
         
         // id 별로 신고당한 횟수 저장
         Map<String, Integer> reportCounts = new HashMap<>();
+        
+        // id 별로 신고당한 횟수 0으로 초기화
+        // for (String id : id_list) {
+        //     reportCounts.put(id, 0);
+        // }
+        
         for (String r : reportSet) {
             String reported = r.split(" ")[1];
             reportCounts.put(reported, reportCounts.getOrDefault(reported, 0) + 1);
@@ -23,6 +29,9 @@ class Solution {
             
             if (reportCounts.get(reported) >= k) {
                 int index = Arrays.asList(id_list).indexOf(reporter);
+                // for (int i = 0; i < id_list.length; i++) {
+                //     if (id_list[i].equals(reporter)) answer[i] ++;
+                // }
                 answer[index]++;
             }
         }
