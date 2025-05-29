@@ -5,11 +5,11 @@ class Solution {
         int answer = 0;
         int N = s.length();
         
-        Stack<Character> stack = new Stack<>();
 
         // x만큼 회전 실행
         for(int i = 0 ; i < N ; i++){
-            stack.clear();
+            Stack<Character> stack = new Stack<>();
+
             // 각각의 괄호의 경우에 따라 올바른지 확인(올바르면 비움)
             for(int j = 0 ; j < N ; j++){
                 if(!stack.isEmpty()){
