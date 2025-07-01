@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] numbers, int target) {
-        //dfs호출해서 경우의 수 구하기
+        //dfs 호출하여 경우의 수 구하기
         return dfs(numbers, 0, target, 0);
     }
     
@@ -10,10 +10,9 @@ class Solution {
         if(index == numbers.length){
             return (cur == target) ? 1 : 0;
         }
-    
+        
         // 경우의 수
         int sum = 0;
-        // +와 -의 경우 모두 고려
         sum += dfs(numbers, index + 1, target, cur + numbers[index]);
         sum += dfs(numbers, index + 1, target, cur - numbers[index]);
         
