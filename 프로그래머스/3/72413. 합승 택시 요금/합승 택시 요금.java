@@ -1,64 +1,44 @@
 import java.util.*;
 
 class Solution {
-    
-    Map<Integer, List<int[]>> graph = new HashMap<>();
     public int solution(int n, int s, int a, int b, int[][] fares) {
-        
-        drawGraph(fares, n);
-        return lowCostTaxi(n, s, a, b);
-    }
-    
-    public void drawGraph(int[][] fares, int n) {
-        for (int i = 1; i <= n; i++) {
-            graph.put(i, new ArrayList<>());
+        List<int[]>[] graph = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) graph[i] = new ArrayList<>();
+        for (int[] f : fares) {
+            graph[f[0]].add(new int[]{f[1], f[2]});
+            graph[f[1]].add(new int[]{f[0], f[2]});
         }
-        for (int[] fare: fares) {
-            graph.get(fare[0]).add(new int[] {fare[1], fare[2]});
-            graph.get(fare[1]).add(new int[] {fare[0], fare[2]});
-        }
-    }
-    
-    public int lowCostTaxi(int n, int s, int a, int b) {
-        
-        int[] costsS = dijkstra(n, s);
-        int[] costsA = dijkstra(n, a);
-        int[] costsB = dijkstra(n, b);
-            
+
+        int[] fromS = dijkstra(n, s, graph);
+        int[] fromA = dijkstra(n, a, graph);
+        int[] fromB = dijkstra(n, b, graph);
+
         int min = Integer.MAX_VALUE;
-        
-        for (int i = 1; i <= n; i++) {
-            min = Math.min(min, costsS[i] + costsA[i] + costsB[i]);
-        }
-        
+        for (int i = 1; i <= n; i++)
+            min = Math.min(min, fromS[i] + fromA[i] + fromB[i]);
+
         return min;
     }
-    
-    public int[] dijkstra(int n, int s) {
-        
-        Queue<int[]> queue = new PriorityQueue<>((a1, a2) -> a1[1] - a2[1]);
-        queue.offer(new int[] {s, 0});
-        
-        int[] costs = new int[n + 1];
-        Arrays.fill(costs, Integer.MAX_VALUE);
-        costs[s] = 0;
-        
-        while(!queue.isEmpty()) {
-            int[] curr = queue.poll();
-            int currNode = curr[0];
-            int currCost = curr[1];
-            
-            for (int[] nodeInfo: graph.get(currNode)) {
-                int nextNode = nodeInfo[0];
-                int nextCost = nodeInfo[1];
-                
-                if (currCost + nextCost < costs[nextNode]) {
-                    queue.offer(new int[] {nextNode, currCost + nextCost});
-                    costs[nextNode] = currCost + nextCost;
+
+    int[] dijkstra(int n, int start, List<int[]>[] graph) {
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[start] = 0;
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        pq.add(new int[]{start, 0});
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            if (cur[1] > dist[cur[0]]) continue;
+
+            for (int[] next : graph[cur[0]]) {
+                if (dist[next[0]] > cur[1] + next[1]) {
+                    dist[next[0]] = cur[1] + next[1];
+                    pq.add(new int[]{next[0], dist[next[0]]});
                 }
             }
         }
-        
-        return costs;
+        return dist;
     }
 }
